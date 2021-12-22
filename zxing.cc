@@ -70,7 +70,7 @@ string ZXing::parseByLib()
     cv::Mat matGray;
     cv::cvtColor(matSrc, matGray, COLOR_BGR2GRAY);
 
-   // try 
+    try 
     {
         zxing::Ref<zxing::LuminanceSource> source = MatSource::create(matGray);
         int width = source->getWidth();
@@ -91,17 +91,17 @@ string ZXing::parseByLib()
         printf("str2: %s\n", str2);
         content += str2;
     }
-    // catch (zxing::Exception &e) 
-    // {
-    //     //Export your failure to read the code here
-    //     eError_ = kParseError;
+    catch (zxing::Exception &e) 
+    {
+        //Export your failure to read the code here
+        eError_ = kParseError;
 
-    //     char buf[100];
+        char buf[100];
 
-    //     fprintf(stderr, "read error: %s, %s\n", qrPath_.c_str(), e.what());
+        fprintf(stderr, "read error: %s, %s\n", qrPath_.c_str(), e.what());
         
-    //     errStr_ = buf;
-    // }
+        errStr_ = buf;
+    }
 
     return content;
 }
@@ -112,7 +112,7 @@ string ZXing::parseByExec()
     getcwd(dir, 256);
     
     char cmd[1024];
-    sprintf(cmd, "/home/jim/code/QRCode/build/bin/zxing %s", qrPath_.c_str());
+    sprintf(cmd, "%s/bin/zxing %s", dir, qrPath_.c_str());
     
     FILE *fstream = NULL;
     fstream = popen(cmd, "r"); // 从管道中读入
