@@ -7,7 +7,10 @@
 
 namespace QRCode
 {
+
+#ifdef USE_TIMEZONE
 class TimeZone;
+#endif
 
 class Logger
 {
@@ -65,10 +68,12 @@ class Logger
     Logger(SourceFile file, int line, bool toAbort);
     ~Logger();
 
+#ifdef USE_LOGSTREAM
     LogStream& stream()
     {
         return impl_.stream_;
     }
+#endif
 
     static LogLevel logLevel();
     static void setLogLevel(LogLevel level);
@@ -78,7 +83,10 @@ class Logger
     
     static void setOutput(OutputFunc);
     static void setFlush(FlushFunc);
+    
+#ifdef USE_TIMEZONE
     static void setTimeZone(const TimeZone& tz);
+#endif
 
  private:
 
@@ -93,7 +101,11 @@ class Logger
         void finish();
 
         Timestamp time_;
+
+#ifdef USE_LOGSTREAM
         LogStream stream_;
+#endif
+
         LogLevel level_;
         int line_;
         SourceFile basename_;
