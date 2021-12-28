@@ -14,7 +14,8 @@ int main(int argc, char *argv[])
         qrPath = argv[1];
     }
 
-    QRParse oParse(qrPath, kZXing); // , kZXing
+    printf("test1\n");
+    QRParse oParse(qrPath); // , 
 
     string text = oParse.parse();
 
